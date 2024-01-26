@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">Купить</button>
+
+    <button class="button">Купить 1</button>
+    <button class="button">Купить 2</button>
+    <button class="button">Купить 3</button>
+
+    <ul class="menu">
+        <li>list-1</li>
+        <li>list-2</li>
+        <li>list-3</li>
+    </ul>
+
+    <h1>Lorem, ipsum dolor.</h1>
+
+    <a href="http://yandex.ru" class="link">yandex</a>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, ut. Minus, eveniet nam nesciunt eum consequatur distinctio qui quis vel!</p>
+
+    <input type="text">
+
+    <form action="#">
+        <input type="text" class="input2">
+        <div class="error"></div>
+        <button type="submit">GO</button>
+    </form>
+
+    <script>
+        const btnEl = document.querySelector('.btn');
+        let count = 0;
+        let counter = 0;
+
+        btnEl.onclick = function () {
+            console.log('Click js button');
+            count++;
+            console.log(`Кликов по кнопке ${count}`);
+        }
+
+        //вариант добавления слушателя событий на кнопку 
+        btnEl.addEventListener('click', function (event){
+            console.log(`click add`);
+        });
+
+        //вариант вынесения функции отдельно
+        const click = function () {
+            console.log('Click js button вынесения функции отдельно');
+            count++;
+            console.log(`Кликов по кнопке ${count}`);
+        }
+        btnEl.addEventListener('click', click);
+
+        //*******несколько кнопок*****
+
+        const btnEls = document.querySelectorAll('.button')
+        btnEls.forEach(element => {
+            element.addEventListener('click', function(e){
+                const target = e.target;
+                console.log(target);
+            });
+        });
+
+        //******* делегирование событий если кнопки в div ***** nfn
+        // словили каждый элемент списка отдельно
+
+        const menuEls = document.querySelector('.menu');
+        const nameFunction = (e) => {
+                        //нажали     текущий
+            console.log(e.target, e.currntTarget);
+        }
+
+        menuEls.addEventListener('click', nameFunction);
+
+
+        //******* load ***** 
+        //DOMContentLoaded контент по сайту загрузился
+
+        document.addEventListener('DOMContentLoaded', function (e){
+            console.log('load');
+        });
+        //load страница прогрузиласть
+        window.addEventListener('load', function (e){
+            console.log('всё загрузилось');
+        });
+
+        //******* mouseover ***** 
+
+        btnEl.addEventListener('mouseover', function (e){
+            console.log('навёл на кнопку!');
+        });
+
+        //******* mouseover ***** 
+
+        btnEl.addEventListener('mouseleave', function (e){
+            console.log('не убегай!');
+        });
+
+        //******* keydown нажатые кнопки ***** 
+
+        window.addEventListener('keydown', function (e){
+            console.log(e);
+            // console.log(e.key);
+        });
+
+        //******* keydown нажатые кнопки ***** 
+        // keyup, keypress
+
+        window.addEventListener('keydown', function (e){
+            console.log(e);
+            // console.log(e.key);
+        });
+
+        //******* link ссылки ***** 
+
+        const linkEl = document.querySelector('.link')
+
+        linkEl.addEventListener('click', function (e){
+            e.preventDefault(); //остановить переход на страницу
+            console.log('hello link');
+        });
+
+        //******* copy копирование текста ***** 
+
+        document.addEventListener('copy', function (e){
+            const copyText = document.getSelection().toString();
+            console.log(copyText);
+        });
+
+        //******* resize изменения на странице ***** 
+
+        window.addEventListener('resize', (e) => {
+            console.log('resize');
+        });
+
+        //******* input ***** 
+
+        const inputEl = document.querySelector('input')
+
+        inputEl.addEventListener('input', (e) => {
+            if (Number(e.target.value) === 123) {
+                console.log('ok');
+            } else {
+                console.log('NO');
+            }
+        });
+
+        //******* submit подтверждение ***** 
+
+        const inputText = document.querySelector('.input2');
+        const formRun = document.querySelector('form');
+        const errorEl = document.querySelector('.error');
+
+        formRun.addEventListener('submit', (e) => {
+            if (inputText.value === '') {
+                e.preventDefault();
+                errorEl.textContent = 'Поле не должно быть пустым';
+            }
+        });
+
+    </script>
+    
+</body>
+</html>
